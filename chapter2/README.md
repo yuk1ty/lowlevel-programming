@@ -1,3 +1,33 @@
+# 実行とか
+
+```
+docker build -t lowlevel-programming:latest .
+```
+
+```
+docker container run -it lowlevel-programming:latest
+```
+
+したあと、bash が起動しているので、
+
+```
+$ nasm -g -f elf64 hello_proper_exit.asm -o hello.o
+```
+
+して、
+
+```
+$ ld hello.o -o hello
+```
+
+したあとに（ld はリンカー）、
+
+```
+$ ./hello
+```
+
+で実行できる。
+
 # 演習問題
 
 ## Q11: xor rdi, rdi とは何をする命令か？
