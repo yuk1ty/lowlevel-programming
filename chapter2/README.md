@@ -87,3 +87,7 @@ mov     ax,1100_1000y   ; same binary constant once more
 mov     ax,0b1100_1000  ; same binary constant yet again
 mov     ax,0y1100_1000  ; same binary constant yet again
 ```
+
+## Q17: je と jz の違いは？
+
+`je` と `jz` は名前こそ違うものの中身は同じ命令。`zf` (zero flag) が 1 かどうかを見ている。opcode も同じ `74` を指している。[これ](https://hikalium.github.io/opv86/)見ると、まったく同じ opcode だとわかる。
