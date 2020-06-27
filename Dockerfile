@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 COPY . /app
 
-RUN apt-get update && apt-get install -y nasm build-essential
+RUN apt-get update && apt-get install -y nasm build-essential gdb
 
 WORKDIR /app
 
