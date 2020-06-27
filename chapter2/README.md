@@ -61,3 +61,42 @@ mov     ax,0y1100_1000  ; same binary constant yet again
 ## Q17: je と jz の違いは？
 
 `je` と `jz` は名前こそ違うものの中身は同じ命令。`zf` (zero flag) が 1 かどうかを見ている。opcode も同じ `74` を指している。[これ](https://hikalium.github.io/opv86/)見ると、まったく同じ opcode だとわかる。
+
+## Q18 リストにある 4 個のコマンドを、それぞれ実行した結果、test の値はどうなるか？
+
+```
+section .data
+test: dq -1
+
+section .text
+
+mov byte[test], 1	;1
+mov word[test], 1	;2
+mov dword[test], 1	;4
+mov qword[test], 1	;8
+```
+
+これは、まずテストは次のように始まる。迷うことはないと思うが、`test` 命令ではないことに注意。
+
+```
+test: dq -1 ; 0xFFFFFFFFFFFFFFFF
+            ; つまり、0x FF FF FF FF FF FF FF FF
+```
+
+下記のように動く。
+
+```
+mov byte[test], 1	; test = 0x FF FF FF FF FF FF FF FF
+```
+
+```
+mov word[test], 1   ; test = 0x 00 FF FF FF FF FF FF FF
+```
+
+```
+mov dword[test], 1  ; test = 0x 00 00 00 FF FF FF FF FF
+```
+
+```
+mov qword[test], 1  ; test = 0x 00 00 00 00 00 00 00 00
+```
