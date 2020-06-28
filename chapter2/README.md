@@ -100,3 +100,67 @@ mov dword[test], 1  ; test = 0x 00 00 00 FF FF FF FF FF
 ```
 mov qword[test], 1  ; test = 0x 00 00 00 00 00 00 00 00
 ```
+
+## Q19 次に示すリストのバグを指摘せよ。
+
+```
+global _start
+
+section .data
+
+test_string: db "abcdef", 0
+
+section .text
+
+strlen:
+.loop:
+cmp byte [rdi+r13], 0
+je .end
+inc r13
+jmp .loop
+.end:
+mov rax, r13
+ret
+
+_start:
+mov rdi, test_string
+call strlen
+mov rdi, rax
+
+mov rax, 60
+syscall
+```
+
+r13 をゼロに初期化していないので、ランダムな値が入る可能性がある。また、.end の中で mov rax, r13 しているが、これはカウントが増えない。毎回保存する必要がある。したがって、直すならば次のようになるはず。
+
+```
+global _start
+
+section .data
+
+test_string: db "abcdef", 0
+
+section .text
+
+strlen:
+push r13
+xor r13, r13
+.loop:
+cmp byte [rdi+r13], 0
+je .end
+inc r13
+jmp .loop
+.end:
+mov rax, r13
+pop r13
+ret
+
+_start:
+mov rdi, test_string
+call strlen
+mov rdi, rax
+
+mov rax, 60
+syscall
+
+```
