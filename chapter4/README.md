@@ -7,3 +7,14 @@
 
 この資料がよかった。横向きだけど。
 http://web-ext.u-aizu.ac.jp/course/osrtk/lecture/pdffordisplay/4-4-5.pdf
+
+## Q48: 4 番目のコラム、5 番目のコラムの意味を、man procfs で調べよう
+
+4 番目の 08:01 という文字列はデバイスを示すらしい。`メジャーデバイス番号:マイナーデバイス番号` という感じらしい。5 番目の 144225 は inode というものを示す。inode は、ファイルやディレクトリの、所有者や更新日時、ファイルサイズなどの「属性情報が書かれているデータ」。
+
+man procfs
+https://man7.org/linux/man-pages//man5/procfs.5.html
+
+## Q49: 「アソシアティブキャッシュ」（associative cache; 連想キャッシュ）とは何か？TLB は、なぜそう呼ばれるのか？
+
+（パタヘネ本を会社で読んで埋める）
